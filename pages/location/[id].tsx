@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Link from 'next/link';
 
-import { BaseScreen } from '../../components';
+import BaseScreen from '../../components/BaseScreen';
 import { TypingText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 
