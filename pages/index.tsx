@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
-import { World } from '../sections';
+import { World } from '../components/sections';
 
 const Home: NextPage = () => {
   return (
-    <div className="overflow-hidden bg-primary-black">
+    <div className='overflow-hidden bg-primary-black'>
       <World />
     </div>
   )
