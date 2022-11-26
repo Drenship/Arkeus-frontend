@@ -4,12 +4,14 @@ import Header from './Header'
 //import Footer from './Footer'
 
 
-const BaseScreen = ({title, headerPlaceholder, children }) => {
+const BaseScreen = ({ title, headerPlaceholder, children }) => {
+
+    const browserTitle = title ? `${title} - Arkeus` : "Arkeus";
 
     return (
         <div className='overflow-hidden bg-primary-black'>
             <Head>
-                <title>{title} {title && "-"} Arkeus</title>
+                <title>{browserTitle}</title>
             </Head>
 
             { /* Header */ }
