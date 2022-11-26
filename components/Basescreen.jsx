@@ -28,4 +28,4 @@ const BaseScreen = ({ title, headerPlaceholder, children }) => {
     )
 }
 
-export default BaseScreen
+export default BaseScreen;
