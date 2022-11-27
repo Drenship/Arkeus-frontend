@@ -1,0 +1,12 @@
+START NEXT APP
+> npm run dev
+
+START SANITY
+> cd sanity
+> npx @sanity/cli start
+
+GIT INIT
+> git init 
+> git add .
+> git commit -m "xxx"
+> git push

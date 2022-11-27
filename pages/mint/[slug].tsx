@@ -1,27 +1,21 @@
 import { useAddress } from '@thirdweb-dev/react';
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react';
 
 // components
 import { CounterAnimation, MintButton, SubTitleText, TitleText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 import Header from '../../components/Header';
+import { sanityClient, urlFor } from '../../sanity';
 import { useInterval } from '../../utils';
+import { Collection } from '../../utils/typing';
 
 
 interface Props {
-    location: {
-        img: '',
-        title: String,
-        description: String,
-        star: number,
-    }
-    query: {
-        slug: String
-    }
+    collection: Collection
 }
 
-const Mint: NextPage<Props> = () => {
+const Mint: NextPage<Props> = ( { collection }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [minted, setMinted] = useState(0);
@@ -39,14 +33,14 @@ const Mint: NextPage<Props> = () => {
                     <div className='flex flex-col items-center justify-center py-2 lg:min-h-full'>
                         <div className='p-2 bg-gradient-to-br from-yellow-400 to-purple-600 rounded-xl'>
                             <img 
-                                src="/nfts/mad-panda.png"
+                                src={urlFor(collection.preview).url()}
                                 alt="mad panda"
                                 className='object-cover w-44 rounded-xl lg:h-96 lg:w-72'
                             />
                         </div>
                         <div className='p-5 space-y-2 text-center'>
-                            <TitleText title={"MAD PANDA"} textStyles="text-white" />
-                            <h2 className='text-xl text-gray-200'>A collection of MAD PANDA who live & breathe React !</h2>
+                            <TitleText title={ collection.nftCollectionName } textStyles="text-white" />
+                            <h2 className='text-xl text-gray-200'>{ collection.description }</h2>
                         </div>
                     </div>
                 </MotionTransition>  
@@ -57,11 +51,11 @@ const Mint: NextPage<Props> = () => {
                         <TitleText title={"Mint my own nft"} textStyles="text-black" />
                         <div className='flex flex-col items-center justify-between'>
                             <img 
-                                src="/nfts/banner-mad-panda.png"
+                                src={ urlFor(collection.mainImage).url() }
                                 alt="mad panda"
                                 className='object-cover w-[75%] rounded-xl select-none'
                             />
-                            <SubTitleText title={"Mint my own nft"} textStyles="text-black" />
+                            <SubTitleText title={ collection.title } textStyles="text-black" />
                         </div>
                         <div>
                            <CounterAnimation value={minted} hideDecimal={true} /> / 1000
@@ -82,21 +76,20 @@ const Mint: NextPage<Props> = () => {
     )
 }
 
-export async function getServerSideProps(context: Props) {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
-    const { query: { slug } } = context;
-
-    const searchResults = await fetch('https://www.jsonkeeper.com/b/5NPS')
-        .then((res) => res.json())
-        .catch((err) => {}) 
+    const query = `*[_type == "collection" && slug.current == $slug][0]`;
+    const collection = await sanityClient.fetch(query, {
+        slug: params?.slug
+    });
+    
+    if(!collection) return { notFound: true }
   
-    const filterLocation = searchResults.filter((s: Props['location']) => s.title === slug)[0] || searchResults[0] || {}
-
     return {
         props : {
-            location: filterLocation
+            collection: collection
         }
     }
-}
+  }
 
 export default Mint

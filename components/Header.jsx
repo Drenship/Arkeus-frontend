@@ -7,7 +7,6 @@ const Header = ({}) => (
         <div className="flex items-start justify-center h-full space-x-2">
             <Link href={"/"}  className='bg-white rounded-full max-w-[80px] flex justify-center button-filters'>Back home</Link>
             <Link href={"/location/dsfgv"}  className='bg-white rounded-full max-w-[80px] flex justify-center button-filters'>location</Link>
-            <Link href={"/mint/dsfgv"}  className='bg-white rounded-full max-w-[80px] flex justify-center button-filters'>mint</Link>
         </div>
         
         <div></div>
