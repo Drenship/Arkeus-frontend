@@ -1,28 +1,28 @@
 interface Image {
     asset: {
-        url: String
+        url: string
     }
 }
 
 export interface Creator {
-    _id: String,
-    name: String,
-    address: String,
+    _id: string,
+    name: string,
+    address: string,
     slug: {
-        current: String,
+        current: string,
     },
     image: Image,
-    bio: String,
+    bio: string,
 }
 
 export interface Collection {
-    _id: String,
-    title: String,
-    description: String,
-    nftCollectionName: String,
-    address: String,
+    _id: string,
+    title: string,
+    description: string,
+    nftCollectionName: string,
+    address: string,
     slug: {
-        current: String,
+        current: string,
     },
     creator: Creator,
     mainImage: Image,

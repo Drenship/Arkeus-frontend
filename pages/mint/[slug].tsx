@@ -1,14 +1,14 @@
-import { useAddress } from '@thirdweb-dev/react';
+import { useAddress, useContract } from '@thirdweb-dev/react';
 import type { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react';
 
 // components
-import { CounterAnimation, MintButton, SubTitleText, TitleText } from '../../components/Custom';
+import { CounterAnimation, DotJumpLoader, MintButton, SubTitleText, TitleText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
-import { useInterval } from '../../utils';
 import { Collection } from '../../utils/typing';
+import { useInterval } from '../../utils';
 
 
 interface Props {
@@ -17,10 +17,27 @@ interface Props {
 
 const Mint: NextPage<Props> = ( { collection }) => {
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [minted, setMinted] = useState(0);
+    const [claimedSupply, setClaimedSupply] = useState<number>(0);
+    const [totalSupply, setTotalSupply] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { contract, isLoading: contractLoading, error: contractError } = useContract(collection.address, "nft-drop");
 
-    useInterval(() => setMinted(1+minted), 1000);
+    useEffect(() => {
+        if(!contract) return;
+
+        const fetchNFTDrop = async () => {
+            let claimedNFTCount = await contract.totalClaimedSupply();
+            let unclaimedNFTCount = await contract.totalUnclaimedSupply();
+
+            setClaimedSupply(Number(claimedNFTCount))
+            setTotalSupply(Number(claimedNFTCount)+Number(unclaimedNFTCount))
+        }
+
+        fetchNFTDrop()
+
+    }, [contract])
+
+    //useInterval(() => setClaimedSupply(1+claimedSupply), 1000);
 
     const address = useAddress(); 
         
@@ -56,22 +73,33 @@ const Mint: NextPage<Props> = ( { collection }) => {
                                 className='object-cover w-[75%] rounded-xl select-none'
                             />
                             <SubTitleText title={ collection.title } textStyles="text-black" />
-                        </div>
-                        <div>
-                           <CounterAnimation value={minted} hideDecimal={true} /> / 1000
+                            {
+                                contractLoading 
+                                    ? <DotJumpLoader />
+                                    : contractError
+                                        ? "loading error"
+                                        : (
+                                            <div className='flex items-center justify-center space-x-1 text-green-600'>
+                                                <CounterAnimation value={claimedSupply} hideDecimal={true} /> 
+                                                <span>/</span> 
+                                                <CounterAnimation value={totalSupply} hideDecimal={true} /> 
+                                                <p>Nft's minted</p>
+                                            </div>
+                                        )
+                            }
                         </div>
                         <MintButton 
                             title="Mint my mad panda for 0.1 eth"
                             isLoading={isLoading} 
                             success={false}
                             error={false}
+                            disabled={isLoading || claimedSupply === totalSupply || contractLoading || contractError || !address }
                             onClick={() => setIsLoading(!isLoading)}
                         />
                     </div>
-
                 </MotionTransition>
+
             </div>
-        
         </div>
     )
 }

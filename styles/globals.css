@@ -70,8 +70,8 @@
     }
 }
 
-/* Number Animation — Robinhood Style */
-.ticker-container {
+  /* Number Animation — Robinhood Style */
+  .ticker-container {
     display: inline-block;
     line-height: 1.75rem;
   }
@@ -137,3 +137,34 @@
       color: rgba(239, 68, 68, 1);
     }
   }
+
+.dot-jump-loader {
+  width: 12px;
+  height: 12px;
+  margin: 6px 0;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  color: #3b82f6;
+  -webkit-animation: dotJumpLoaderAnimation 1s linear infinite alternate;
+  animation: dotJumpLoaderAnimation 1s linear infinite alternate;
+}
+
+@keyframes dotJumpLoaderAnimation {
+  0% {
+    box-shadow: -38px -12px, -14px 0, 14px 0, 38px 0;
+    color: #3b82f6;
+  }
+  33% {
+    box-shadow: -38px 0px, -14px -12px, 14px 0, 38px 0;
+    color: #3b82f6;
+  }
+  66% {
+    box-shadow: -38px 0px, -14px 0, 14px -12px, 38px 0;
+    color: #a855f7;
+  }
+  100% {
+    box-shadow: -38px 0, -14px 0, 14px 0, 38px -12px;
+    color: #a855f7;
+  }
+}

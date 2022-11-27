@@ -1,6 +1,6 @@
 import { TypingText, SubTitleText, TitleText } from './CustomTexts';
 import { MintButton } from './CustomButtons';
-import { ButtonLoader } from './CustomLoaders';
+import { ButtonLoader, DotJumpLoader } from './CustomLoaders';
 import CounterAnimation from './CounterAnimation';
 
 export {
@@ -11,5 +11,7 @@ export {
   CounterAnimation,
 
   MintButton,
-  ButtonLoader
+
+  ButtonLoader,
+  DotJumpLoader,
 };
