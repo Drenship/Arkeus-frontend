@@ -1,3 +1,4 @@
+import { useAddress } from '@thirdweb-dev/react';
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 
@@ -26,11 +27,13 @@ const Mint: NextPage<Props> = () => {
     const [minted, setMinted] = useState(0);
 
     useInterval(() => setMinted(1+minted), 1000);
-    
+
+    const address = useAddress(); 
+        
     return (
         <div>
             <Header />
-            <div className='flex flex-col h-screen grid-cols-10 lg:grid'>
+            <div className='flex flex-col h-[calc(100vh-64px)] grid-cols-10 lg:grid'>
                 {/* left */}
                 <MotionTransition classname="px-5 py-5 bg-gradient-to-br from-cyan-800 to-rose-500 lg:col-span-3">
                     <div className='flex flex-col items-center justify-center py-2 lg:min-h-full'>
@@ -56,7 +59,7 @@ const Mint: NextPage<Props> = () => {
                             <img 
                                 src="/nfts/banner-mad-panda.png"
                                 alt="mad panda"
-                                className='object-cover w-[75%] rounded-xl'
+                                className='object-cover w-[75%] rounded-xl select-none'
                             />
                             <SubTitleText title={"Mint my own nft"} textStyles="text-black" />
                         </div>
