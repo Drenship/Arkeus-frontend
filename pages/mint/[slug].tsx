@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react';
 
 // components
-import { CounterAnimation, DotJumpLoader, MintButton, SubTitleText, TitleText } from '../../components/Custom';
+import { ButtonLoader, CounterAnimation, DotJumpLoader, MintButton, SubTitleText, TitleText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
@@ -17,29 +17,53 @@ interface Props {
 
 const Mint: NextPage<Props> = ( { collection }) => {
 
+    const [priceInEth, setPriceInEth] = useState<string>('???');
+    const [claimConditions, setClaimConditions] = useState<any>({});
     const [claimedSupply, setClaimedSupply] = useState<number>(0);
     const [totalSupply, setTotalSupply] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const { contract, isLoading: contractLoading, error: contractError } = useContract(collection.address, "nft-drop");
-
-    useEffect(() => {
-        if(!contract) return;
-
-        const fetchNFTDrop = async () => {
-            let claimedNFTCount = await contract.totalClaimedSupply();
-            let unclaimedNFTCount = await contract.totalUnclaimedSupply();
-
-            setClaimedSupply(Number(claimedNFTCount))
-            setTotalSupply(Number(claimedNFTCount)+Number(unclaimedNFTCount))
-        }
-
-        fetchNFTDrop()
-
-    }, [contract])
-
-    //useInterval(() => setClaimedSupply(1+claimedSupply), 1000);
 
     const address = useAddress(); 
+    const { contract, isLoading: contractLoading, error: contractError } = useContract(collection.address, "nft-drop");
+
+    const fetchNFTDrop = async () => {
+        if(!contract) return;
+        let claimedNFTCount = await contract.totalClaimedSupply();
+        let unclaimedNFTCount = await contract.totalUnclaimedSupply();
+        setClaimedSupply(Number(claimedNFTCount))
+        setTotalSupply(Number(claimedNFTCount)+Number(unclaimedNFTCount))
+    }
+
+    const fetchClaimConditions = async () => {
+        if(!contract) return;
+        const claimConditions = await contract.claimConditions.getAll();
+        setClaimConditions(claimConditions[0])
+        setPriceInEth(claimConditions?.[0].currencyMetadata?.displayValue)
+    }
+
+    const mintNFT = async () => {
+        if(!contract || !address) return;
+        setIsLoading(true) // add loader
+        const quantity = 1; // how many unique NFTs you want to claim
+        contract.claimTo(address, quantity).then(async (tx) => {
+            const receipt = tx[0].receipt; // the transaction receipt
+            const claimedTokenId = tx[0].id; // the id of the NFT claimed
+            const claimedNFT = await tx[0].data(); // (optional) get the claimed NFT metadata
+            console.log(receipt, claimedTokenId, claimedNFT)
+        }).catch((err) => {
+            console.log(err)
+        }).finally(() => {
+            setIsLoading(false) // remove loader
+        })
+    }
+
+    useEffect(() => {
+        fetchNFTDrop()
+        fetchClaimConditions()
+    }, [contract])
+
+    useInterval(fetchNFTDrop, 30000); // 30s update
+
         
     return (
         <div>
@@ -89,12 +113,20 @@ const Mint: NextPage<Props> = ( { collection }) => {
                             }
                         </div>
                         <MintButton 
-                            title="Mint my mad panda for 0.1 eth"
+                            title={
+                                contractLoading
+                                    ? <ButtonLoader />
+                                    : claimedSupply === totalSupply && totalSupply !== 0
+                                        ? "SOLD OUT"  
+                                        : !address
+                                            ? "Sign in to mint"
+                                            : `Mint NFT for ${priceInEth} ETH`
+                            }
                             isLoading={isLoading} 
                             success={false}
                             error={false}
                             disabled={isLoading || claimedSupply === totalSupply || contractLoading || contractError || !address }
-                            onClick={() => setIsLoading(!isLoading)}
+                            onClick={() => mintNFT()}
                         />
                     </div>
                 </MotionTransition>
