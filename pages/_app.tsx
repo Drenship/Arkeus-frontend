@@ -16,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     </Head>
     
     {/* Mainnet */}
-    <ThirdwebProvider desiredChainId={ChainId.Rinkeby}>
+    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
       <Component {...pageProps} />
     </ThirdwebProvider>
   </>
