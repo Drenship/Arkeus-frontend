@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Link from 'next/link';
 
 // components
-import BaseScreen from '../../components/BaseScreen';
 import { TypingText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 
@@ -22,11 +21,9 @@ const Location: NextPage<Props> = ({ location }) => {
 
 
     return (
-        <BaseScreen title={location.title} headerPlaceholder=''>
-            <MotionTransition classname="relative z-10 px-6 py-12 sm:p-16 xs:p-8">
-                <TypingText title={location.title} textStyles="text-center" />
-            </MotionTransition>
-        </BaseScreen>
+        <MotionTransition classname="relative z-10 px-6 py-12 sm:p-16 xs:p-8">
+            <TypingText title={location.title} textStyles="text-center" />
+        </MotionTransition>
     )
 }
 

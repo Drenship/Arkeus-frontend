@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 
 // components
-import BaseScreen from '../../components/BaseScreen';
 import { CounterAnimation, MintButton, SubTitleText, TitleText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
 import Header from '../../components/Header';
