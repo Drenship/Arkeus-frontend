@@ -68,4 +68,72 @@
     .navPadding {
         @apply pt-[98px]
     }
- }
+}
+
+/* Number Animation — Robinhood Style */
+.ticker-container {
+    display: inline-block;
+    line-height: 1.75rem;
+  }
+  
+  
+  /* Number Animation — Robinhood Style */
+  
+  .ticker-view {
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: hidden;
+    font-size: inherit;
+    position: relative;
+    color: black;
+  }
+  
+  .number-placeholder {
+    visibility: hidden;
+  }
+  
+  .ticker-column-container {
+    position: relative;
+    text-align: center;
+  }
+  
+  .ticker-column {
+    position: absolute;
+    height: 1000%;
+    bottom: 0;
+  }
+  
+  .ticker-digit {
+    height: 10%;
+  }
+  
+  .ticker-column.increase {
+    animation: pulseGreen 500ms cubic-bezier(0.4, 0, 0.6, 1) 1;
+  }
+  
+  .ticker-column.decrease {
+    animation: pulseRed 500ms cubic-bezier(0.4, 0, 0.6, 1) 1;
+  }
+  
+  @keyframes pulseGreen {
+    0%,
+    100% {
+      color: white;
+    }
+  
+    50% {
+      color: rgba(16, 185, 129, 1);
+    }
+  }
+  
+  @keyframes pulseRed {
+    0%,
+    100% {
+      color: white;
+    }
+  
+    50% {
+      color: rgba(239, 68, 68, 1);
+    }
+  }

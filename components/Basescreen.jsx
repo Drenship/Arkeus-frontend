@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Header from './Header'
 //import Footer from './Footer'
 
-
 const BaseScreen = ({ title, headerPlaceholder, children }) => {
 
     const browserTitle = title ? `${title} - Arkeus` : "Arkeus";
@@ -18,7 +17,7 @@ const BaseScreen = ({ title, headerPlaceholder, children }) => {
             <Header placeholder={headerPlaceholder || ''} />
 
             { /* Mainsite */ }
-            <main className='px-8 mx-auto max-w-7xl sm:px-16'>
+            <main>
                 { children  }
             </main>
 

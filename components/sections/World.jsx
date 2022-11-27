@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 
 import { TitleText, TypingText } from '../Custom';
 import { fadeIn, staggerContainer } from '../../utils/motion';
-import Link from 'next/link';
 
 const World = () => (
   <section className="relative z-10 paddings">
@@ -20,8 +19,6 @@ const World = () => (
           title="Invest in real estate worldwide and collect monthly rent"
           textStyles="text-center"
         />
-
-        <Link href={"/location/dsfgv"}  className='bg-white rounded-full max-w-[80px] flex justify-center button-filters'>location</Link>
 
         <motion.div
           variants={fadeIn('up', 'tween', 0.3, 1)}
