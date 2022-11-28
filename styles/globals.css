@@ -68,6 +68,15 @@
     .navPadding {
         @apply pt-[98px]
     }
+
+    
+
+  .sidebar {
+    @apply right-[-300px] hidden;
+  }
+  .sidebar.active {
+    @apply right-0 block !important;
+  }
 }
 
   /* Number Animation — Robinhood Style */

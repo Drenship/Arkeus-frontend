@@ -10,7 +10,7 @@ export default function Metamask() {
 
     return (
         address 
-            ? <button className='text-white rounded-full button-click-effect bg-cyan-500' onClick={disconnect}>{substringAddress(address)}</button>
-            : <button className='text-white rounded-full button-click-effect bg-cyan-500' onClick={connectWithMetamask}>Connect Wallet</button>
+            ? <button className='px-4 py-2 border-2 border-black rounded-full button-click-effect text-bold' onClick={disconnect}>{substringAddress(address)}</button>
+            : <button className='px-4 py-2 border-2 border-black rounded-full button-click-effect text-bold' onClick={connectWithMetamask}>Connect Wallet</button>
     )
 }
