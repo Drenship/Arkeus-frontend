@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 
-import { TitleText, TypingText } from '../Custom';
-import { fadeIn, staggerContainer } from '../../utils/motion';
+import { TitleText, TypingText } from '../../Custom';
+import { fadeIn, staggerContainer } from '../../../utils/motion';
 
-const World = () => (
+const HomeWorld = () => (
   <section className="relative z-10 paddings">
     <motion.div
       variants={staggerContainer}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.25 }}
       className="relative z-10 px-6 py-12 sm:p-16 xs:p-8"
     >
       <motion.div className="2xl:max-w-[1280px] w-full mx-auto flex flex-col">
@@ -44,4 +44,4 @@ const World = () => (
   </section>
 );
 
-export default World;
+export default HomeWorld;

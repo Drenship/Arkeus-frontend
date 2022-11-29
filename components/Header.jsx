@@ -1,44 +1,22 @@
 import Image from "next/image";
 import Link from "next/link"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { Metamask } from './WalletConnection'
+import { useRef, useState } from "react"
+import { useEscapeListener } from "../utils";
+import { Metamask, PopupSelectWallet } from './WalletConnection'
 
 const Header = ({}) => {
 
     const toggleMenuRef = useRef();
+    const toggleWalletConnectRef = useRef();
+    
     const [openSidebar, setOpenSidebar] = useState(false)
+    const [toggleConnectWallet, setToggleConnectWallet] = useState(false)
 
-
-    // sidebar open / close
-    const _toggleSidebar = () => {
-        const toggle = openSidebar ? false : true
-        setOpenSidebar(toggle)
-    }
-
-    // sidebar click event close
-    const clickListener = useCallback(e => {
-        if (toggleMenuRef.current && !toggleMenuRef.current.contains(e.target)) setOpenSidebar(false)
-    }, [toggleMenuRef])
-
-    // sidebar keyboard event close
-    const escapeListener = useCallback(e => {
-        if (e.key === 'Escape') {
-            setOpenSidebar(false)
-        }
-    }, [])
-
-    // sidebar init event
-    useEffect(() => {
-        if(toggleMenuRef){
-            document.addEventListener('click', clickListener)
-            document.addEventListener('keyup', escapeListener)
-        }
-        return () => {
-            document.removeEventListener('click', clickListener)
-            document.removeEventListener('keyup', escapeListener)
-        }
-    }, [clickListener, escapeListener, toggleMenuRef])
-
+    //SIDEBAR
+    useEscapeListener(toggleMenuRef, () => setOpenSidebar(false))
+    //button add popup wallet connect
+    useEscapeListener(toggleWalletConnectRef, () => setToggleConnectWallet(false))
+    
     return (
         <header className="sticky top-0 z-50 grid h-16 grid-cols-3 px-5 py-2 bg-white shadow-md md:px-10">
             
@@ -60,8 +38,12 @@ const Header = ({}) => {
             
             { /* right menu */ }
             <div className="flex items-center justify-end space-x-4">
-                <Metamask />
-                <div className="flex p-2 space-x-2 rounded-full cursor-pointer" ref={ toggleMenuRef } onClick={_toggleSidebar}>
+                <Metamask
+                    ref={toggleWalletConnectRef}
+                    isOpen={toggleConnectWallet}
+                    setClose={setToggleConnectWallet}
+                />
+                <div className="flex p-2 space-x-2 rounded-full cursor-pointer button-click-effect" ref={ toggleMenuRef } onClick={() => setOpenSidebar(!openSidebar)}>
                     <Image 
                         src="/icons/menu.svg" 
                         alt="menu-icon"
@@ -71,8 +53,14 @@ const Header = ({}) => {
                 </div>
             </div>
 
+            { /* Popup Select Wallet for connection */ }
+            <PopupSelectWallet
+                isOpen={toggleConnectWallet}
+                setClose={setToggleConnectWallet}
+            />
+
             { /* Sidebar */ }
-            <div className={`absolute top-0 z-50 w-full h-[100vh] bg-white border-l shadow-xl sm:w-[300px] transition duration-20 sidebar transition-all ${openSidebar ? 'active' : ''}`}>
+            <div className={`absolute top-0 z-50 w-full h-[100vh] bg-white border-l shadow-xl sm:w-[300px] transition duration-20 sidebar ${openSidebar ? 'active' : ''}`}>
                 <h3 className="p-4 text-xl font-bold">Menu</h3>
                 <Link href="/">
                     <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">

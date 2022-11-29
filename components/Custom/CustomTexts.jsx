@@ -6,6 +6,7 @@ export const TitleText = ({ title, textStyles }) => (
     variants={textVariant2}
     initial="hidden"
     whileInView="show"
+    viewport={{ once: true }}
     className={`mt-[8px] text-2xl md:text-4xl font-bold text-white ${textStyles}`}
   >
     {title}
@@ -17,6 +18,7 @@ export const SubTitleText = ({ title, textStyles }) => (
     variants={textVariant2}
     initial="hidden"
     whileInView="show"
+    viewport={{ once: true }}
     className={`mt-[8px] font-bold md:text-2xl text-xl text-white ${textStyles}`}
   >
     {title}
@@ -26,6 +28,7 @@ export const SubTitleText = ({ title, textStyles }) => (
 export const TypingText = ({ title, textStyles }) => (
   <motion.p
     variants={textContainer}
+    viewport={{ once: true }}
     className={`font-eudoxus font-normal text-[14px] text-[#c7c7c7] ${textStyles}`}
   >
     {Array.from(title).map((letter, index) => (

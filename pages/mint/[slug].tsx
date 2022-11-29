@@ -9,6 +9,7 @@ import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
 import { Collection } from '../../utils/typing';
 import { useInterval } from '../../utils';
+import Image from 'next/image';
 
 
 interface Props {
@@ -73,7 +74,9 @@ const Mint: NextPage<Props> = ( { collection }) => {
                 <MotionTransition classname="px-5 py-5 bg-gradient-to-br from-cyan-800 to-rose-500 lg:col-span-3">
                     <div className='flex flex-col items-center justify-center py-2 lg:min-h-full'>
                         <div className='p-2 bg-gradient-to-br from-yellow-400 to-purple-600 rounded-xl'>
-                            <img 
+                            <Image 
+                                width={288}
+                                height={384}
                                 src={urlFor(collection.preview).url()}
                                 alt="mad panda"
                                 className='object-cover w-44 rounded-xl lg:h-96 lg:w-72'
@@ -91,7 +94,9 @@ const Mint: NextPage<Props> = ( { collection }) => {
                     <div className='flex flex-col items-center justify-between h-full px-5 py-10 space-y-5'>
                         <TitleText title={"Mint my own nft"} textStyles="text-black" />
                         <div className='flex flex-col items-center justify-between'>
-                            <img 
+                            <Image 
+                                width={978}
+                                height={326}
                                 src={ urlFor(collection.mainImage).url() }
                                 alt="mad panda"
                                 className='object-cover w-[75%] rounded-xl select-none'

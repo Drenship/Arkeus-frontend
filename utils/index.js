@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -26,4 +26,33 @@ export function usePrevious(value) {
     ref.current = value;
   });
   return ref.current;
+}
+
+
+export function useEscapeListener(ref, callback) {
+  // sidebar click event close
+  const clickListener = useCallback(e => {
+    if (ref.current && !ref.current.contains(e.target)){
+      callback()
+    }
+  }, [ref])
+
+  // sidebar keyboard event close
+  const escapeListener = useCallback(e => {
+    if (e.key === 'Escape') {
+      callback()
+    }
+  }, [])
+
+  // sidebar init event
+  useEffect(() => {
+    if(ref){
+      document.addEventListener('click', clickListener)
+      document.addEventListener('keyup', escapeListener)
+    }
+    return () => {
+      document.removeEventListener('click', clickListener)
+      document.removeEventListener('keyup', escapeListener)
+    }
+  }, [clickListener, escapeListener, ref])
 }

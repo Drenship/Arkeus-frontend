@@ -1,5 +1,7 @@
-import World from './World';
+import HomeWorld from './Home/HomeWorld';
+import HomeMint from './Home/HomeMint';
 
 export {
-  World,
+  HomeMint,
+  HomeWorld,
 };
