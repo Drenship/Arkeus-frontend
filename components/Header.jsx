@@ -11,7 +11,8 @@ const Header = ({}) => {
     
     const [openSidebar, setOpenSidebar] = useState(false)
     const [toggleConnectWallet, setToggleConnectWallet] = useState(false)
-
+    const [searchResult, setSearchResult] = useState(null)
+    
     //SIDEBAR
     useEscapeListener(toggleMenuRef, () => setOpenSidebar(false))
     //button add popup wallet connect
@@ -34,7 +35,65 @@ const Header = ({}) => {
             </div>
             
             { /* navbar */ }
-            <div></div>
+            <div className="relative flex items-center justify-center w-full max-w-lg space-x-4 cursor-pointer">
+                <Image 
+                    src="/icons/search.svg" 
+                    alt="menu-icon"
+                    height={24} 
+                    width={24}
+                    className="absolute left-50 top-50 md:left-3"
+                />
+                <div className="hidden w-full md:block">
+                    <input 
+                        type="text" 
+                        placeholder="Collections, nfts, ..."
+                        className="w-full pb-1 pl-6 border-b-2 border-gray-300 outline-none focus:border-black" 
+                        onChange={(e) => setSearchResult(e.target.value)}
+                    />
+                </div>
+
+
+                { /* search result */ }
+                {
+                    searchResult && (
+                        <div className="absolute right-0 flex flex-col w-full h-10 mt-16">
+                            <div className="py-4 mt-1 space-x-2 bg-white rounded-b-lg shadow-lg">
+                                {/* reseult start */}
+                                <Link href="/mint/mad-panda-x-dall-e-2" className="flex p-4 space-x-4 rounded-lg shadow-inner hover:shadow-lg">
+                                    <div>
+                                        <Image
+                                            width={56}
+                                            height={56}
+                                            src='https://cdn.sanity.io/images/7fr19bdl/production/ecc460c475a0b8431e9348ce289b43980bea6adb-1024x1024.png'
+                                            className="rounded-lg"
+                                        />
+                                    </div>
+                                    <div className="">
+                                        <h3 className="font-bold">Mad panda x DALL·E 2</h3>
+                                        <span className="text-xs italic text-gray-500">By Drenship {searchResult}</span>
+                                    </div>
+                                </Link>
+                                <Link href="/mint/fisher-x-dall-e-2" className="flex p-4 space-x-4 rounded-lg shadow-inner hover:shadow-lg">
+                                    <div>
+                                        <Image
+                                            width={56}
+                                            height={56}
+                                            src='https://cdn.sanity.io/images/7fr19bdl/production/bdafb7b9710356ada3c343353c18aeab2216d81b-1024x1024.png'
+                                            className="rounded-lg"
+                                        />
+                                    </div>
+                                    <div className="">
+                                        <h3 className="font-bold">Fisher x DALL·E 2</h3>
+                                        <span className="text-xs italic text-gray-500">By Drenship</span>
+                                    </div>
+                                </Link>
+                            {/* reseult end */}
+                            </div>
+                        </div>
+                    )
+                }
+
+            </div>
             
             { /* right menu */ }
             <div className="flex items-center justify-end space-x-4">
