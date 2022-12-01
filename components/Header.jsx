@@ -98,7 +98,7 @@ const Header = ({}) => {
             { /* right menu */ }
             <div className="flex items-center justify-end space-x-4">
                 <Metamask
-                    ref={toggleWalletConnectRef}
+                    isRef={toggleWalletConnectRef}
                     isOpen={toggleConnectWallet}
                     setClose={setToggleConnectWallet}
                 />
@@ -111,12 +111,6 @@ const Header = ({}) => {
                     />
                 </div>
             </div>
-
-            { /* Popup Select Wallet for connection */ }
-            <PopupSelectWallet
-                isOpen={toggleConnectWallet}
-                setClose={setToggleConnectWallet}
-            />
 
             { /* Sidebar */ }
             <div className={`absolute top-0 z-50 w-full h-[100vh] bg-white border-l shadow-xl sm:w-[300px] transition duration-20 sidebar ${openSidebar ? 'active' : ''}`}>
@@ -132,7 +126,18 @@ const Header = ({}) => {
                         <span>Accueil</span>
                     </div>
                 </Link>
-                <Link href="/Marketplace">
+                <Link href="/canlendar">
+                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
+                        <Image 
+                            src="/icons/calendar.svg" 
+                            alt="menu-icon"
+                            height={24} 
+                            width={24}
+                        /> 
+                        <span>Canlendar</span>
+                    </div>
+                </Link>
+                <Link href="/marketplace">
                     <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
                         <Image 
                             src="/icons/cube.svg" 
@@ -143,7 +148,7 @@ const Header = ({}) => {
                         <span>Marketplace</span>
                     </div>
                 </Link>
-                <Link href="/next/imo">
+                <Link href="/lottery">
                     <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
                         <Image 
                             src="/icons/ticket.svg" 
@@ -151,7 +156,7 @@ const Header = ({}) => {
                             height={24} 
                             width={24}
                         /> 
-                        <span>Next IMO</span>
+                        <span>Lottery</span>
                     </div>
                 </Link>
                 <Link href="/user/profil">
@@ -165,7 +170,25 @@ const Header = ({}) => {
                         <span>Profil</span>
                     </div>
                 </Link>
+                <Link href="/analytics">
+                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
+                        <Image 
+                            src="/icons/chart-pie.svg" 
+                            alt="menu-icon"
+                            height={24} 
+                            width={24}
+                        /> 
+                        <span>Analytics</span>
+                    </div>
+                </Link>
             </div>
+
+            
+            { /* Popup Select Wallet for connection */ }
+            <PopupSelectWallet
+                isOpen={toggleConnectWallet}
+                setClose={setToggleConnectWallet}
+            />
 
         </header>
     )

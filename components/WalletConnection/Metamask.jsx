@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react'
 import { substringAddress } from '../../utils/utils'
 
-export default function Metamask({ ref, isOpen, setClose }) {
+export default function Metamask({ isRef, isOpen, setClose }) {
 
     const address = useAddress(); 
     const disconnect = useDisconnect();
@@ -23,7 +23,7 @@ export default function Metamask({ ref, isOpen, setClose }) {
                 <span className='hidden lg:block'>{ substringAddress(address) }</span>
             </button>
             : <button
-                ref={ref}  
+                ref={isRef}  
                 onClick={()=> setClose(!isOpen)}  
                 className='flex items-center justify-end px-4 py-2 rounded-full button-click-effect text-bold lg:space-x-2 lg:border-2 lg:border-black'
             > 

@@ -84,7 +84,7 @@ const Mint: NextPage<Props> = ( { collection }) => {
                         </div>
                         <div className='p-5 space-y-2 text-center'>
                             <TitleText title={ collection.nftCollectionName } textStyles="text-white" />
-                            <h2 className='text-xl text-gray-200'>{ collection.description }</h2>
+                            <h2 className='text-left text-gray-200 text-md'>{ collection.description }</h2>
                         </div>
                     </div>
                 </MotionTransition>  
@@ -98,7 +98,7 @@ const Mint: NextPage<Props> = ( { collection }) => {
                                 width={978}
                                 height={326}
                                 src={ urlFor(collection.mainImage).url() }
-                                alt="mad panda"
+                                alt={ collection.title }
                                 className='object-cover w-[75%] rounded-xl select-none'
                             />
                             <SubTitleText title={ collection.title } textStyles="text-black" />
