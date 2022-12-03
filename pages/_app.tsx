@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import BaseScreen from '../components/BaseScreen';
 
 import '../styles/globals.css';
 
@@ -14,9 +15,13 @@ const App = ({ Component, pageProps }: AppProps) => (
       <link href="https://stijndv.com/fonts/Eudoxus-Sans.css" />
     </Head>
     
-    {/* Mainnet */}
-    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
-      <Component {...pageProps} />
+    {/* Page */}
+    <ThirdwebProvider desiredChainId={ ChainId.Goerli }>
+      
+      <BaseScreen>
+        <Component {...pageProps} />
+      </BaseScreen>
+
     </ThirdwebProvider>
   </>
 );

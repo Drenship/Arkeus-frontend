@@ -9,7 +9,6 @@ import { sanityClient, urlFor } from '../../sanity';
 import { Collection } from '../../utils/typing';
 import { useInterval } from '../../utils';
 import Image from 'next/image';
-import BaseScreen from '../../components/BaseScreen-old';
 
 
 interface Props {
@@ -67,7 +66,7 @@ const Mint: NextPage<Props> = ({ collection }) => {
 
         
     return (
-        <BaseScreen>
+        <>
             <div className='flex flex-col h-[calc(100vh-64px)] grid-cols-10 lg:grid'>
                 {/* left */}
                 <MotionTransition classname="px-5 py-5 bg-gradient-to-br from-cyan-800 to-rose-500 lg:col-span-3">
@@ -140,7 +139,7 @@ const Mint: NextPage<Props> = ({ collection }) => {
                 </MotionTransition>
 
             </div>
-        </BaseScreen>
+        </>
     )
 }
 
