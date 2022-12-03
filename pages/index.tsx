@@ -1,5 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import BaseScreen from '../components/BaseScreen';
+import BaseScreen from '../components/BaseScreen-old';
 import { HomeMint, HomeWorld } from '../components/sections';
 import { sanityClient } from '../sanity';
 import { Collection } from '../utils/typing';

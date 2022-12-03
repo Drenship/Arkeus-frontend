@@ -9,7 +9,7 @@ import { sanityClient, urlFor } from '../../sanity';
 import { Collection } from '../../utils/typing';
 import { useInterval } from '../../utils';
 import Image from 'next/image';
-import BaseScreen from '../../components/BaseScreen';
+import BaseScreen from '../../components/BaseScreen-old';
 
 
 interface Props {
