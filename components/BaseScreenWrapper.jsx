@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header } from './Header'
 
-export default function BaseScreen({ children }) {
+export default function BaseScreenWrapper({ children }) {
     return (
         <div className='relative h-screen overflow-x-hidden overflow-y-scroll'>
 
