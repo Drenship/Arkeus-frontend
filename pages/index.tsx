@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from 'next'
+import BaseScreen from '../components/BaseScreen';
 import { HomeMint, HomeWorld } from '../components/sections';
 import { sanityClient } from '../sanity';
 import { Collection } from '../utils/typing';
@@ -10,10 +11,12 @@ interface Props {
 const Home: NextPage<Props> = ({ collections }) => {
 
   return (
-    <div className='bg-primary-black'>
-      <HomeMint collections={collections} />
-      <HomeWorld />
-    </div>
+    <BaseScreen>
+      <div className='bg-primary-black'>
+        <HomeMint collections={collections} />
+        <HomeWorld />
+      </div>
+    </BaseScreen>
   )
 }
 

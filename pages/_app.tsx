@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app';
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 
 import '../styles/globals.css';
-import BaseScreen from '../components/BaseScreen.jsx';
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -17,9 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     
     {/* Mainnet */}
     <ThirdwebProvider desiredChainId={ChainId.Goerli}>
-      <BaseScreen>
-        <Component {...pageProps} />
-      </BaseScreen>
+      <Component {...pageProps} />
     </ThirdwebProvider>
   </>
 );
