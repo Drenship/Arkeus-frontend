@@ -1,20 +1,12 @@
-import Head from 'next/head'
+import { Header } from './Header/index';
 // components
-import Header from './Header'
-//import Footer from './Footer'
 
-const BaseScreen = ({ title, headerPlaceholder, children }) => {
-
-    const browserTitle = title ? `${title} - Arkeus` : "Arkeus";
-
+export default function BaseScreen({ children }) {
     return (
-        <div className='overflow-hidden bg-primary-black'>
-            <Head>
-                <title>{browserTitle}</title>
-            </Head>
+        <div className='relative h-screen overflow-x-hidden overflow-y-scroll bg-primary-black'>
 
             { /* Header */ }
-            <Header placeholder={headerPlaceholder || ''} />
+            <Header />
 
             { /* Mainsite */ }
             <main>
@@ -26,5 +18,3 @@ const BaseScreen = ({ title, headerPlaceholder, children }) => {
         </div>
     )
 }
-
-export default BaseScreen;

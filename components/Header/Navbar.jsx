@@ -1,26 +1,14 @@
 import Image from "next/image";
 import Link from "next/link"
-import { useRef, useState } from "react"
-import { useEscapeListener } from "../utils";
-import { Metamask, PopupSelectWallet } from './WalletConnection'
+import React, { useState } from 'react'
+import { Metamask } from './WalletConnection'
 
-const Header = ({}) => {
+export default function Navbar({ toggleMenuRef, openSidebar, setOpenSidebar, toggleWalletConnectRef, toggleConnectWallet, setToggleConnectWallet }) {
 
-    const toggleMenuRef = useRef();
-    const toggleWalletConnectRef = useRef();
-    
-    const [openSidebar, setOpenSidebar] = useState(false)
-    const [toggleConnectWallet, setToggleConnectWallet] = useState(false)
-    const [searchResult, setSearchResult] = useState(null)
-    
-    //SIDEBAR
-    useEscapeListener(toggleMenuRef, () => setOpenSidebar(false))
-    //button add popup wallet connect
-    useEscapeListener(toggleWalletConnectRef, () => setToggleConnectWallet(false))
-    
+    const [searchResult, setSearchResult] = useState(null);
+
     return (
-        <header className="sticky top-0 z-50 grid h-16 grid-cols-3 px-5 py-2 bg-white shadow-md md:px-10">
-            
+        <div className="grid h-16 grid-cols-3 px-5 py-2 bg-white shadow-md md:px-10"> 
             { /* left logo */ }
             <div className="flex items-center justify-start space-x-4">
                 <Link href={"/"}  className='rounded-full max-w-[80px] flex justify-start space-x-1'>
@@ -111,87 +99,6 @@ const Header = ({}) => {
                     />
                 </div>
             </div>
-
-            { /* Sidebar */ }
-            <div className={`absolute top-0 z-50 w-full h-[100vh] bg-white border-l shadow-xl sm:w-[300px] transition duration-20 sidebar ${openSidebar ? 'active' : ''}`}>
-                <h3 className="p-4 text-xl font-bold">Menu</h3>
-                <Link href="/">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/home.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Accueil</span>
-                    </div>
-                </Link>
-                <Link href="/canlendar">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/calendar.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Canlendar</span>
-                    </div>
-                </Link>
-                <Link href="/marketplace">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/cube.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Marketplace</span>
-                    </div>
-                </Link>
-                <Link href="/lottery">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/ticket.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Lottery</span>
-                    </div>
-                </Link>
-                <Link href="/user/profil">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/user.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Profil</span>
-                    </div>
-                </Link>
-                <Link href="/analytics">
-                    <div className="flex p-4 space-x-2 font-semibold border-t border-b cursor-pointer button-click-effect">
-                        <Image 
-                            src="/icons/chart-pie.svg" 
-                            alt="menu-icon"
-                            height={24} 
-                            width={24}
-                        /> 
-                        <span>Analytics</span>
-                    </div>
-                </Link>
-            </div>
-
-            
-            { /* Popup Select Wallet for connection */ }
-            <PopupSelectWallet
-                isOpen={toggleConnectWallet}
-                setClose={setToggleConnectWallet}
-            />
-
-        </header>
+        </div>
     )
 }
-
-export default Header

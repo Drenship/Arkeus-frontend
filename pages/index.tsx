@@ -1,8 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import Link from 'next/link';
-import Header from '../components/Header';
 import { HomeMint, HomeWorld } from '../components/sections';
-import { sanityClient, urlFor } from '../sanity';
+import { sanityClient } from '../sanity';
 import { Collection } from '../utils/typing';
 
 interface Props {
@@ -12,11 +10,10 @@ interface Props {
 const Home: NextPage<Props> = ({ collections }) => {
 
   return (
-    <div className='overflow-hidden bg-primary-black'>
-      <Header />
+    <>
       <HomeMint collections={collections} />
       <HomeWorld />
-    </div>
+    </>
   )
 }
 

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 // components
 import { ButtonLoader, CounterAnimation, DotJumpLoader, MintButton, SubTitleText, TitleText } from '../../components/Custom';
 import MotionTransition from '../../components/FramerMotion/MotionTransition';
-import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
 import { Collection } from '../../utils/typing';
 import { useInterval } from '../../utils';
@@ -16,7 +15,7 @@ interface Props {
     collection: Collection
 }
 
-const Mint: NextPage<Props> = ( { collection }) => {
+const Mint: NextPage<Props> = ({ collection }) => {
 
     const [priceInEth, setPriceInEth] = useState<string>('???');
     const [claimConditions, setClaimConditions] = useState<any>({});
@@ -67,8 +66,7 @@ const Mint: NextPage<Props> = ( { collection }) => {
 
         
     return (
-        <div>
-            <Header />
+        <>
             <div className='flex flex-col h-[calc(100vh-64px)] grid-cols-10 lg:grid'>
                 {/* left */}
                 <MotionTransition classname="px-5 py-5 bg-gradient-to-br from-cyan-800 to-rose-500 lg:col-span-3">
@@ -103,41 +101,45 @@ const Mint: NextPage<Props> = ( { collection }) => {
                             />
                             <SubTitleText title={ collection.title } textStyles="text-black" />
                             {
-                                contractLoading 
-                                    ? <DotJumpLoader />
-                                    : contractError
-                                        ? "loading error"
-                                        : (
-                                            <div className='flex items-center justify-center space-x-1 text-green-600'>
-                                                <CounterAnimation value={claimedSupply} hideDecimal={true} /> 
-                                                <span>/</span> 
-                                                <CounterAnimation value={totalSupply} hideDecimal={true} /> 
-                                                <p>Nft's minted</p>
-                                            </div>
-                                        )
+                                !contract 
+                                    ? ""
+                                    : contractLoading
+                                        ? <DotJumpLoader />
+                                        : contractError
+                                            ? "loading error"
+                                            : (
+                                                <div className='flex items-center justify-center space-x-1 text-green-600'>
+                                                    <CounterAnimation value={claimedSupply} hideDecimal={true} /> 
+                                                    <span>/</span> 
+                                                    <CounterAnimation value={totalSupply} hideDecimal={true} /> 
+                                                    <p>Nft's minted</p>
+                                                </div>
+                                            )
                             }
                         </div>
                         <MintButton 
                             title={
-                                contractLoading
-                                    ? <ButtonLoader />
-                                    : claimedSupply === totalSupply && totalSupply !== 0
-                                        ? "SOLD OUT"  
-                                        : !address
-                                            ? "Sign in to mint"
-                                            : `Mint NFT for ${priceInEth} ETH`
+                                !contract 
+                                    ? "Contract not ready yet"
+                                    : contractLoading
+                                        ? <ButtonLoader />
+                                        : claimedSupply === totalSupply && totalSupply !== 0
+                                            ? "SOLD OUT"  
+                                            : !address
+                                                ? "Sign in to mint"
+                                                : `Mint NFT for ${priceInEth} ETH`
                             }
                             isLoading={isLoading} 
                             success={false}
                             error={false}
-                            disabled={isLoading || claimedSupply === totalSupply || contractLoading || contractError || !address }
+                            disabled={ isLoading || claimedSupply === totalSupply || contractLoading || contractError || !address || !contract }
                             onClick={() => mintNFT()}
                         />
                     </div>
                 </MotionTransition>
 
             </div>
-        </div>
+        </>
     )
 }
 

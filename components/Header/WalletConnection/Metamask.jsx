@@ -1,7 +1,7 @@
 import { useAddress, useDisconnect } from '@thirdweb-dev/react';
 import Image from 'next/image';
 import React from 'react'
-import { substringAddress } from '../../utils/utils'
+import { substringAddress } from '../../../utils/utils'
 
 export default function Metamask({ isRef, isOpen, setClose }) {
 

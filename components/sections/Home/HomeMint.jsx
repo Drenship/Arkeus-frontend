@@ -34,8 +34,8 @@ const HomeMint = ({ collections }) => (
 
                     <div className='gap-6 p-2 px-8 mx-auto grid-default max-w-7xl sm:px-16'>
                         {
-                            collections.map(collection => (
-                                <Link href={`/mint/${collection.slug.current}`} className='w-full bg-white cursor-pointer button-click-effect max-w-[360px] mx-auto shadow-sm overflow-hidden'>
+                            collections.map((collection, key) => (
+                                <Link key={key} href={`/mint/${collection.slug.current}`} className='w-full bg-white cursor-pointer button-click-effect max-w-[360px] mx-auto shadow-sm overflow-hidden'>
                                     
                                     <div className='relative w-full'>
                                         <Image 
