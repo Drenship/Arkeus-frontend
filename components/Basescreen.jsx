@@ -3,7 +3,7 @@ import { Header } from './Header/index';
 
 export default function BaseScreen({ children }) {
     return (
-        <div className='relative h-screen overflow-x-hidden overflow-y-scroll bg-primary-black'>
+        <div className='relative h-screen overflow-x-hidden overflow-y-scroll'>
 
             { /* Header */ }
             <Header />

@@ -10,10 +10,10 @@ interface Props {
 const Home: NextPage<Props> = ({ collections }) => {
 
   return (
-    <>
+    <div className='bg-primary-black'>
       <HomeMint collections={collections} />
       <HomeWorld />
-    </>
+    </div>
   )
 }
 
