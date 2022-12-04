@@ -22,19 +22,19 @@ const HomeWorld = () => (
 
         <motion.div
           variants={fadeIn('up', 'tween', 0.3, 1)}
-          className="relative mt-[68px] flex w-full h-[550px]"
+          className="relative mt-[68px] flex w-full max-h-[550px]"
         >
           <img src="/assets/map.png" alt="map" className="object-cover w-full h-full" />
 
-          <div className="absolute bottom-20 right-20 w-[70px] h-[70px] p-[6px] rounded-full bg-[#5D6680]">
+          <div className="absolute bottom-10 right-10 lg:bottom-20 lg:right-20 lg:w-[70px] w-[34px] h-[34px] lg:h-[70px] p-[3px] lg:p-[6px] rounded-full bg-[#5D6680]">
             <img src="/assets/people-01.png" alt="people" className="w-full h-full" />
           </div>
 
-          <div className="absolute top-1/2 left-[45%] w-[70px] h-[70px] p-[6px] rounded-full bg-[#5D6680]">
+          <div className="absolute top-1/2 left-[45%] lg:w-[70px] w-[34px] h-[34px] lg:h-[70px] p-[3px] lg:p-[6px] rounded-full bg-[#5D6680]">
             <img src="/assets/people-02.png" alt="people" className="w-full h-full" />
           </div>
 
-          <div className="absolute top-10 left-20 w-[70px] h-[70px] p-[6px] rounded-full bg-[#5D6680]">
+          <div className="absolute top-5 left-10 lg:top-10 lg:left-20 lg:w-[70px] w-[34px] h-[34px] lg:h-[70px] p-[3px] lg:p-[6px] rounded-full bg-[#5D6680]">
             <img src="/assets/people-03.png" alt="people" className="w-full h-full" />
           </div>
           

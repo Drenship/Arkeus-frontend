@@ -15,10 +15,12 @@ const App = ({ Component, pageProps }: AppProps) => (
       <link href="https://stijndv.com/fonts/Eudoxus-Sans.css" />
     </Head>
     
-    {/* Page */}
+    {/* Provider - Wellet connection */}
     <ThirdwebProvider desiredChainId={ ChainId.Goerli }>
       
+      {/* Main Website */}
       <BaseScreenWrapper>
+        {/* Page */}
         <Component {...pageProps} />
       </BaseScreenWrapper>
 

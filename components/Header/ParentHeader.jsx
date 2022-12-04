@@ -18,7 +18,7 @@ const ParentHeader = ({}) => {
     useEscapeListener(toggleWalletConnectRef, () => setToggleConnectWallet(false))
     
     return (
-        <header className="sticky top-0 z-50">
+        <header className="sticky top-0 z-50 text-black">
             
             { /* Navbar */ }
             <Navbar 

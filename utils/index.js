@@ -20,6 +20,32 @@ export function useInterval(callback, delay) {
   }, [delay]);
 }
 
+/**
+ * 
+ * @param {function} callback
+ * @param {number} delay 
+ * @param {condition} restart Condition pour annuler et redémarrer de 0 le Timeout
+ */
+export function useTimeout(callback, delay, restart) {
+  const savedCallback = useRef();
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+  // Set up the timeout.
+  useEffect(() => {
+    function tick() {
+      if (typeof savedCallback?.current === "function") {
+        savedCallback.current();
+      }
+    }
+    if (delay !== null) {
+      const id = setTimeout(tick, delay);
+      return () => clearTimeout(id);
+    }
+  }, [restart]);
+}
+
 export function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
